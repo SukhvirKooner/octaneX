@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   ScrollView,
@@ -15,6 +15,13 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import MapplsMap from 'mappls-map-react-native';
+import {
+  MAPPLS_MAP_SDK_KEY,
+  MAPPLS_REST_API_KEY,
+  MAPPLS_ATLAS_CLIENT_ID,
+  MAPPLS_ATLAS_CLIENT_SECRET,
+} from '@env';
 
 import {
   Colors,
@@ -56,6 +63,14 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    // Initialize MAPPLS SDK
+    MapplsMap.setMapSDKKey(MAPPLS_MAP_SDK_KEY);
+    MapplsMap.setRestAPIKey(MAPPLS_REST_API_KEY);
+    MapplsMap.setAtlasClientId(MAPPLS_ATLAS_CLIENT_ID);
+    MapplsMap.setAtlasClientSecret(MAPPLS_ATLAS_CLIENT_SECRET);
+  }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
